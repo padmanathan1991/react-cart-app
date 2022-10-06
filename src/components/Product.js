@@ -32,7 +32,10 @@ export default function Product({ singleProduct, getCartAddedProduct }) {
         </div>
         <div className="absolute bottom-0">
           <div
-            onClick={() => getCartAddedProduct(singleProduct)}
+            onClick={(e) => {
+              e.preventDefault();
+              getCartAddedProduct(singleProduct)
+            }}
             className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
           >
             Add to cart

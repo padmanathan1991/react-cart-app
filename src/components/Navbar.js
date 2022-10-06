@@ -3,7 +3,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export default function Navbar({ cartAddedProduct }) {
-  // console.log("cartAddedProduct", cartAddedProduct)
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
