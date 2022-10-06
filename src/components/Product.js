@@ -1,6 +1,12 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Product({ singleProduct, getCartAddedProduct }) {
+
+  const location = useLocation();
+
+  console.log(location)
+
   return (
     <>
       <div key={singleProduct.id} className="px-2 w-1/4 my-8 pb-12 relative">
@@ -30,6 +36,9 @@ export default function Product({ singleProduct, getCartAddedProduct }) {
             </p>
           </div>
         </div>
+
+        {location.pathname === "/" ? (
+
         <div className="absolute bottom-0">
           <div
             onClick={(e) => {
@@ -40,7 +49,22 @@ export default function Product({ singleProduct, getCartAddedProduct }) {
           >
             Add to cart
           </div>
-        </div>
+        </div> ) : <></> }
+
+        {location.pathname === "/cart" ? (
+
+        <div className="absolute bottom-0">
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              getCartAddedProduct(singleProduct)
+            }}
+            className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
+          >
+            Remove Item
+          </div>
+        </div> ) : <></> }
+
       </div>
     </>
   );
