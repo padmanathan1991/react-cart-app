@@ -26,26 +26,15 @@ export default function Home() {
           ?.length === 0
       ) {
         setCartAddedProduct([...cartAddedProduct, singleProduct]);
-        localStorage.setItem(
-          "cartAddedProduct",
-          data?.length
-            ? JSON.stringify([...data, singleProduct])
-            : JSON.stringify([singleProduct])
-        );
       } else alert("already added");
     } else {
       setCartAddedProduct([singleProduct]);
-      localStorage.setItem(
-        "cartAddedProduct",
-        data?.length
-          ? JSON.stringify([...data, singleProduct])
-          : JSON.stringify([singleProduct])
-      );
     }
   };
 
   const removeCartAddedProduct = (singleProduct) => {
     setCartAddedProduct(cartAddedProduct.filter((item) => item.id != singleProduct.id))
+ 
   };
 
   useEffect(() => {
@@ -54,6 +43,12 @@ export default function Home() {
     });
     setCartAddedProduct(data);
   }, []);
+
+  useEffect(()=>{
+    localStorage.setItem(
+      "cartAddedProduct",JSON.stringify(cartAddedProduct)
+    )
+  },[cartAddedProduct])
 
   useEffect(() => {
     const CategoryArrFilter = productsList.filter((item) => {
@@ -110,7 +105,7 @@ export default function Home() {
         style={{ height: "calc(100vh - 80px)" }}
         className="scrollbar-hide mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 overflow-scroll"
       >
-        {cartAddedProduct ? (
+        {cartAddedProduct && cartAddedProduct.length != 0 ? (
           <div className="flex flex-wrap -mx-2">
             {cartAddedProduct &&
               cartAddedProduct.map((singleProduct) => {
