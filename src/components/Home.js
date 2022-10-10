@@ -17,6 +17,8 @@ export default function Home() {
   };
   const data = JSON.parse(localStorage.getItem("cartAddedProduct"));
 
+  console.log("data content", data)
+
   const getCartAddedProduct = (singleProduct) => {
     if (cartAddedProduct?.length) {
       if (
@@ -43,7 +45,7 @@ export default function Home() {
   };
 
   const removeCartAddedProduct = (singleProduct) => {
-    console.log(singleProduct, "this item needs to be removed");
+    setCartAddedProduct(cartAddedProduct.filter((item) => item.id != singleProduct.id))
   };
 
   useEffect(() => {
