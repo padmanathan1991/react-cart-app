@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import Product from "./Product";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const [productsList, setProductsList] = useState([]);
@@ -19,6 +21,10 @@ export default function Home() {
 
   console.log("data content", data)
 
+  function CountDisplay() {
+    return <div>Already added to cart</div>;
+  }
+
   const getCartAddedProduct = (singleProduct) => {
     if (cartAddedProduct?.length) {
       if (
@@ -26,7 +32,7 @@ export default function Home() {
           ?.length === 0
       ) {
         setCartAddedProduct([...cartAddedProduct, singleProduct]);
-      } else alert("already added");
+      } else toast(<CountDisplay />)
     } else {
       setCartAddedProduct([singleProduct]);
     }
@@ -80,6 +86,17 @@ export default function Home() {
             <option value="jewelery">Jewelery</option>
           </select>
         </div>
+        <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
         <div className="flex flex-wrap -mx-2">
           {filteredCategory?.length ? (
             filteredCategory.map((singleProduct) => {
