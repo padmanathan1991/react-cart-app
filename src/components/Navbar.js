@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 export default function Navbar({ cartAddedProduct }) {
-  
+
   const location = useLocation();
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-gray-800 shadow-xl">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="flex items-center justify-center sm:items-stretch sm:justify-start">

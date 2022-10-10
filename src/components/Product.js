@@ -1,11 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-export default function Product({ singleProduct, getCartAddedProduct }) {
+export default function Product({ singleProduct, getCartAddedProduct, removeCartAddedProduct }) {
 
   const location = useLocation();
-
-  console.log(location)
 
   return (
     <>
@@ -57,7 +55,7 @@ export default function Product({ singleProduct, getCartAddedProduct }) {
           <div
             onClick={(e) => {
               e.preventDefault();
-              getCartAddedProduct(singleProduct)
+              removeCartAddedProduct(singleProduct)
             }}
             className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
           >

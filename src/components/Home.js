@@ -42,6 +42,10 @@ export default function Home() {
     }
   };
 
+  const removeCartAddedProduct = (singleProduct) => {
+    console.log(singleProduct, "this item needs to be removed");
+  };
+
   useEffect(() => {
     axios.get(url).then((response) => {
       setProductsList(response.data);
@@ -84,6 +88,7 @@ export default function Home() {
             filteredCategory.map((singleProduct) => {
               return (
                 <Product
+                  key={singleProduct.id}
                   singleProduct={singleProduct}
                   getCartAddedProduct={() => getCartAddedProduct(singleProduct)}
                 />
@@ -103,17 +108,31 @@ export default function Home() {
         style={{ height: "calc(100vh - 80px)" }}
         className="scrollbar-hide mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 overflow-scroll"
       >
-        <div className="flex flex-wrap -mx-2">
-          {cartAddedProduct &&
-            cartAddedProduct.map((singleProduct) => {
-              return (
-                <Product
-                  singleProduct={singleProduct}
-                  getCartAddedProduct={() => getCartAddedProduct(singleProduct)}
-                />
-              );
-            })}
-        </div>
+        {cartAddedProduct ? (
+          <div className="flex flex-wrap -mx-2">
+            {cartAddedProduct &&
+              cartAddedProduct.map((singleProduct) => {
+                return (
+                  <Product
+                    key={singleProduct.id}
+                    singleProduct={singleProduct}
+                    getCartAddedProduct={() =>
+                      getCartAddedProduct(singleProduct)
+                    }
+                    removeCartAddedProduct={() =>
+                      removeCartAddedProduct(singleProduct)
+                    }
+                  />
+                );
+              })}
+          </div>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <p className="text-3xl font-bold text-gray-800">
+              Cart is Empty !!!
+            </p>
+          </div>
+        )}
       </div>
     );
   };
