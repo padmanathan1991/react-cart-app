@@ -3,41 +3,50 @@ import Navbar from "./Navbar";
 import Product from "./Product";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const [productsList, setProductsList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all products");
   const [filteredCategory, setFilteredCategory] = useState([]);
   const [cartAddedProduct, setCartAddedProduct] = useState([]);
+  
 
   const url = "https://fakestoreapi.com/products";
+
+  const addCartToast = () =>
+  toast("Added to cart", {
+    duration: 2000,
+    style: {background: '#2f855a', color: '#fff', fontWeight: 700},
+  });
+
+  const removeCartToast = () =>
+  toast("Removed from cart", {
+    duration: 2000,
+    style: {background: '#e53e3e', color: '#fff', fontWeight: 700},
+  });
 
   const getSelectedCategoryValue = (e) => {
     setSelectedCategory(e.target.value);
   };
   const data = JSON.parse(localStorage.getItem("cartAddedProduct"));
 
-  function CountDisplay() {
-    return <div>added to cart</div>;
-  }
-
   const getCartAddedProduct = (singleProduct) => {
+    addCartToast();
     if (cartAddedProduct?.length) {
       if (
         cartAddedProduct.filter((item) => item.id === singleProduct.id)
           ?.length === 0
       ) {
         setCartAddedProduct([...cartAddedProduct, singleProduct]);
-      } else alert("added to cart");
+      }
     } else {
       setCartAddedProduct([singleProduct]);
     }
-    toast(<CountDisplay />);
   };
 
   const removeCartAddedProduct = (singleProduct) => {
+    removeCartToast();
     setCartAddedProduct(
       cartAddedProduct.filter((item) => item.id != singleProduct.id)
     );
@@ -84,17 +93,6 @@ export default function Home() {
             <option value="jewelery">Jewelery</option>
           </select>
         </div>
-        <ToastContainer
-          position="top-center"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
         <div className="flex flex-wrap -mx-2">
           {filteredCategory?.length ? (
             filteredCategory.map((singleProduct) => {

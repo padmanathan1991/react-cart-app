@@ -7,7 +7,7 @@ export default function Product({
   removeCartAddedProduct,
   cartAddedProduct,
 }) {
-  console.log("dsafasfsdfaadsff", cartAddedProduct);
+  
   const location = useLocation();
 
   return (
