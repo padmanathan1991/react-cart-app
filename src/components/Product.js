@@ -1,8 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-export default function Product({ singleProduct, getCartAddedProduct, removeCartAddedProduct }) {
-
+export default function Product({
+  singleProduct,
+  getCartAddedProduct,
+  removeCartAddedProduct,
+  cartAddedProduct,
+}) {
+  console.log("dsafasfsdfaadsff", cartAddedProduct);
   const location = useLocation();
 
   return (
@@ -36,33 +41,43 @@ export default function Product({ singleProduct, getCartAddedProduct, removeCart
         </div>
 
         {location.pathname === "/" ? (
-
-        <div className="absolute bottom-0">
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              getCartAddedProduct(singleProduct)
-            }}
-            className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
-          >
-            Add to cart
+          <div className="absolute bottom-0">
+            <button
+              disabled={
+                cartAddedProduct?.filter((item) => item.id === singleProduct.id)
+                  .length
+              }
+              onClick={(e) => {
+                e.preventDefault();
+                getCartAddedProduct(singleProduct);
+              }}
+              className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600 disabled:bg-slate-300 disabled:text-slate-800 disabled:cursor-default"
+            >
+              {cartAddedProduct?.filter((item) => item.id === singleProduct.id)
+                .length
+                ? "Added to cart"
+                : "Add to cart"}
+            </button>
           </div>
-        </div> ) : <></> }
+        ) : (
+          <></>
+        )}
 
         {location.pathname === "/cart" ? (
-
-        <div className="absolute bottom-0">
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              removeCartAddedProduct(singleProduct)
-            }}
-            className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
-          >
-            Remove Item
+          <div className="absolute bottom-0">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                removeCartAddedProduct(singleProduct);
+              }}
+              className="relative flex items-center justify-center rounded-md border border-transparent bg-indigo-500 duration-150 py-2 px-8 text-sm font-medium cursor-pointer text-white hover:bg-indigo-600"
+            >
+              Remove Item
+            </button>
           </div>
-        </div> ) : <></> }
-
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

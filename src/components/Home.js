@@ -4,7 +4,7 @@ import Product from "./Product";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [productsList, setProductsList] = useState([]);
@@ -19,10 +19,8 @@ export default function Home() {
   };
   const data = JSON.parse(localStorage.getItem("cartAddedProduct"));
 
-  console.log("data content", data)
-
   function CountDisplay() {
-    return <div>Already added to cart</div>;
+    return <div>added to cart</div>;
   }
 
   const getCartAddedProduct = (singleProduct) => {
@@ -32,15 +30,17 @@ export default function Home() {
           ?.length === 0
       ) {
         setCartAddedProduct([...cartAddedProduct, singleProduct]);
-      } else toast(<CountDisplay />)
+      } else alert("added to cart");
     } else {
       setCartAddedProduct([singleProduct]);
     }
+    toast(<CountDisplay />);
   };
 
   const removeCartAddedProduct = (singleProduct) => {
-    setCartAddedProduct(cartAddedProduct.filter((item) => item.id != singleProduct.id))
- 
+    setCartAddedProduct(
+      cartAddedProduct.filter((item) => item.id != singleProduct.id)
+    );
   };
 
   useEffect(() => {
@@ -50,11 +50,9 @@ export default function Home() {
     setCartAddedProduct(data);
   }, []);
 
-  useEffect(()=>{
-    localStorage.setItem(
-      "cartAddedProduct",JSON.stringify(cartAddedProduct)
-    )
-  },[cartAddedProduct])
+  useEffect(() => {
+    localStorage.setItem("cartAddedProduct", JSON.stringify(cartAddedProduct));
+  }, [cartAddedProduct]);
 
   useEffect(() => {
     const CategoryArrFilter = productsList.filter((item) => {
@@ -87,15 +85,15 @@ export default function Home() {
           </select>
         </div>
         <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+          position="top-center"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
         <div className="flex flex-wrap -mx-2">
           {filteredCategory?.length ? (
@@ -105,6 +103,7 @@ export default function Home() {
                   key={singleProduct.id}
                   singleProduct={singleProduct}
                   getCartAddedProduct={() => getCartAddedProduct(singleProduct)}
+                  cartAddedProduct={cartAddedProduct}
                 />
               );
             })
