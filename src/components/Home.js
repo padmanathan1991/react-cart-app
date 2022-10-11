@@ -33,16 +33,12 @@ export default function Home() {
 
   const getCartAddedProduct = (singleProduct) => {
     addCartToast();
-    if (cartAddedProduct?.length) {
       if (
         cartAddedProduct.filter((item) => item.id === singleProduct.id)
           ?.length === 0
       ) {
         setCartAddedProduct([...cartAddedProduct, singleProduct]);
       }
-    } else {
-      setCartAddedProduct([singleProduct]);
-    }
   };
 
   const removeCartAddedProduct = (singleProduct) => {
